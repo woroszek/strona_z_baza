@@ -16,6 +16,7 @@ class Product(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
 
+
 class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(120), nullable=False)
@@ -73,7 +74,8 @@ def sell(product: Product):
             change_balance(product.quantity * product.cost)
             is_product.quantity -= product.quantity
             manager.komunikat = f"Sprzedano produkt {product.name} w ilości {product.quantity} w cenie {product.cost}"
-            historyy = History(text=f"Sprzedano produkt {product.name} w ilości {product.quantity} w cenie {product.cost}")
+            historyy = History(
+                text=f"Sprzedano produkt {product.name} w ilości {product.quantity} w cenie {product.cost}")
             db.session.add(historyy)
             db.session.commit()
             if is_product.quantity == 0:
@@ -88,5 +90,6 @@ def sell(product: Product):
 class Manager:
     def __init__(self):
         self.komunikat = "Tutaj zobaczysz komunikaty."
+
 
 manager = Manager()

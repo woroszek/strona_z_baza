@@ -60,23 +60,24 @@ def history():
 
 @app.route('/history', methods=["POST"])
 def history_view():
-    komunikat = manager.komunikat
     history_a = func.History.query.all()
     try:
         od = int(request.form.get("Od"))
         do = int(request.form.get("Do"))
         if not history_a :
             manager.komunikat = "Historia jest pusta."
-        elif history_a and od < do and od > 0:
+        elif history_a and do >= od > 0:
             history_b = history_a[od-1:do]
             history_a = history_b
+        else:
+            manager.komunikat = "Podano nieprawidlowe dane. Program wyświetli całą historię."
     except ValueError:
         if history_a:
             manager.komunikat = "Podano nieprawidlowe dane. Program wyświetli całą historię."
             history_a = func.History.query.all()
         else:
             manager.komunikat = "Historia jest pusta."
-    return render_template("history.html", history_a=history_a, komunikat=komunikat)
+    return render_template("history.html", history_a=history_a, komunikat=manager.komunikat)
 
 
 alembic = Alembic()
