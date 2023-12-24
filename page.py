@@ -42,12 +42,15 @@ def sell_view():
 
 @app.route("/balance", methods=["POST"])
 def balance():
-    add = request.form.get("add")
-    func.change_balance(int(add))
-    manager.komunikat = f"Zmieniono saldo o {add}"
-    historyy = func.History(text=f"Zmieniono saldo o {add}")
-    db.session.add(historyy)
-    db.session.commit()
+    try:
+        add = request.form.get("add")
+        func.change_balance(int(add))
+        manager.komunikat = f"Zmieniono saldo o {add}"
+        historyy = func.History(text=f"Zmieniono saldo o {add}")
+        db.session.add(historyy)
+        db.session.commit()
+    except ValueError:
+        manager.komunikat = 'Uzupełnij pole formularzu.'
     return redirect('/')
 
 
