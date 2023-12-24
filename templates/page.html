@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Strona Główna</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+        background-color: #212529;
+        }
+        * {
+        color: white;
+        text-align: justify;
+        }
+        form {
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+        }
+        form input {
+        color: black;
+        font-weight: bold;
+        }
+        th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #DDD;
+}
+        .btn-history {
+            background-color: #8ca08c;
+            color: #fff;
+            font-size: 30px;
+            padding: 15px 20px;
+            border-radius: 8px;
+
+
+
+    </style>
+
+</head>
+<body>
+    <div class="container-fluid p-5 bg-dark text-white">
+        <h1 class="text-center" >Aplikacja Magazyn</h1><br>
+        <p>Komunikaty:</p>
+        <div class="alert alert-dark" style="background-color:#4d5053">
+            <br>
+        <p class="text-center">{{komunikat}}</p>
+            <br>
+        </div>
+
+
+
+    </div>
+
+    <div class="row">
+
+    <div class="col border">
+        <h4 class="text-center">Zakup</h4>
+        <form action="/purchase" method="post">
+        <label for="item">Nazwa produktu:</label><br>
+        <input type="text" id="item" name="item"><br>
+        <label for="quantity">Ilość produktu:</label><br>
+        <input type="number" id="quantity" name="quantity"><br>
+        <label for="cost">Cena pojedynczego produktu:</label><br>
+        <input type="number" id="cost" name="cost"><br>
+        <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div class="col border">
+        <h4 class="text-center">Sprzedaż</h4>
+        <form action="/sell" method="post">
+        <label for="item">Nazwa produktu:</label><br>
+        <input type="text" id="itemm" name="item"><br>
+        <label for="quantity">Ilość produktu:</label><br>
+        <input type="number" id="quantityy" name="quantity"><br>
+        <label for="cost">Cena pojedynczego produktu:</label><br>
+        <input type="number" id="costt" name="cost"><br>
+        <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div class="col border">
+        <h4 class="text-center">Saldo</h4>
+        <h4 class="text-center">Stan konta: {{balance}}</h4>
+
+        <div class="row">
+            <h5 class="text-center">Dodaj lub odejmij kwotę:</h5>
+            <p class="text-center"> Aby odjąć sumę wpisz - przed kwotą</p>
+            <div>
+            <form action="/balance" method="post">
+            <label for="add">Dodaj kwotę:</label><br>
+            <input type="number" id="add" name="add"><br>
+            <input type="submit" value="Submit"> <br>
+            </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+    <div class="container-fluid p-5 bg-dark text-white">
+        <h4 class="text-center">Aktualny stan magazynu:</h4><br>
+        <table style="width:100%">
+        <thead>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Ilość</th>
+        <th scope="col">Cena</th>
+        </thead>
+        <tbody>
+        <tr>
+        {% for item in history %}
+        <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.cost }}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+
+        </table>
+    </div>
+    <br><br>
+
+    <div class="container-fluid">
+        <h3 class="text-center"><a href="/history.html" class="btn-history">HISTORIA</a></h3>
+    </div>
+
+
+
+
+
+</body>
+
+</html>
