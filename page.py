@@ -69,6 +69,7 @@ def history_view():
         elif history_a and do >= od > 0:
             history_b = history_a[od-1:do]
             history_a = history_b
+            manager.komunikat = "Wyświetlam historię."
         else:
             manager.komunikat = "Podano nieprawidlowe dane. Program wyświetli całą historię."
     except ValueError:
